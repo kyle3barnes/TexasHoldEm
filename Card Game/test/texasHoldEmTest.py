@@ -16,7 +16,7 @@ class TexasHoldEmTest(unittest.TestCase):
 
     def test_play_game(self):
         hands, table_cards = TexasHoldEm.dealCards(self)
-        self.assertEqual("F", TexasHoldEm.playGame(hands, table_cards))
+        self.assertEqual("F", TexasHoldEm.playGame(self, hands, table_cards))
 
 
 if __name__ == '__main__':
