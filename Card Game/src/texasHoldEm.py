@@ -8,8 +8,8 @@ class TexasHoldEm:
     input = ConsoleInput()
     output = ConsoleOutput()
 
-    def set_input(self, input):
-        self.input = input
+    def set_input(self, input_to_set):
+        self.input = input_to_set
 
     def deal_cards(self):
         deck = self.playingCard.generate_deck()
