@@ -1,6 +1,6 @@
-from PlayingCard import PlayingCard
 from ConsoleInput import ConsoleInput
 from ConsoleOutput import ConsoleOutput
+from PlayingCard import PlayingCard
 
 
 class TexasHoldEm:
@@ -8,17 +8,17 @@ class TexasHoldEm:
     input = ConsoleInput()
     output = ConsoleOutput()
 
-    def setInput(self, input):
+    def set_input(self, input):
         self.input = input
 
-    def dealCards(self):
+    def deal_cards(self):
         deck = self.playingCard.generate_deck()
         deck = self.playingCard.shuffle_cards(deck)
         hands = self.playingCard.deal_cards(deck, 2, 2)
         table_cards = self.playingCard.deal_cards(deck, 5, 1)
         return hands, table_cards
 
-    def playGame(self, hands, table_cards):
+    def play_game(self, hands, table_cards):
         fold = "F"
         print("Your hand: " + str(hands[0]) + "  " + "Computers hand: " + str(
             hands[1]))
@@ -38,7 +38,7 @@ class TexasHoldEm:
             print()
         return fold
 
-    def determineWinner(self, hands, table_cards):
+    def determine_winner(self, hands, table_cards):
         user_hand = hands[0]
         comp_hand = hands[1]
 
@@ -52,20 +52,20 @@ class TexasHoldEm:
                      8: "Pair",
                      9: "Highest Card"}
 
-        same_suit, straight, four_pair, three_pair, pair, number_of_pairs = self.gameRules(user_hand, table_cards)
+        same_suit, straight, four_pair, three_pair, pair, number_of_pairs = self.game_rules(user_hand, table_cards)
 
-        comp_win_rank = self.getWinRank(same_suit, straight, four_pair, three_pair, pair,
-                                        number_of_pairs)
+        comp_win_rank = self.get_win_rank(same_suit, straight, four_pair, three_pair, pair,
+                                          number_of_pairs)
 
-        same_suit, straight, four_pair, three_pair, pair, number_of_pairs = self.gameRules(comp_hand, table_cards)
+        same_suit, straight, four_pair, three_pair, pair, number_of_pairs = self.game_rules(comp_hand, table_cards)
 
-        user_win_rank = self.getWinRank(same_suit, straight, four_pair, three_pair, pair,
-                                        number_of_pairs)
+        user_win_rank = self.get_win_rank(same_suit, straight, four_pair, three_pair, pair,
+                                          number_of_pairs)
 
         return user_win_rank, comp_win_rank, win_ranks
 
     @staticmethod
-    def getWinRank(same_suit, straight, four_pair, three_pair, pair, number_of_pairs):
+    def get_win_rank(same_suit, straight, four_pair, three_pair, pair, number_of_pairs):
         if same_suit and straight:
             win = 1
         elif four_pair:
@@ -86,16 +86,16 @@ class TexasHoldEm:
             win = 9
         return win
 
-    def gameRules(self, hand, table_cards):
-        same_suit = self.suitCheck(hand, table_cards)
+    def game_rules(self, hand, table_cards):
+        same_suit = self.suit_check(hand, table_cards)
 
-        straight = self.straightCheck(hand)
+        straight = self.straight_check(hand)
 
-        four_pair, three_pair, pair, number_of_pairs = self.pairCheck(hand)
+        four_pair, three_pair, pair, number_of_pairs = self.pair_check(hand)
 
         return same_suit, straight, four_pair, three_pair, pair, number_of_pairs
 
-    def getCardNumberList(self, hand, table_cards):
+    def get_card_number_list(self, hand, table_cards):
         number_list = []
 
         for x in range(len(hand)):
@@ -113,7 +113,7 @@ class TexasHoldEm:
         return number_list
 
     @staticmethod
-    def suitCheck(hand, table_cards):
+    def suit_check(hand, table_cards):
         suit_counter = 0
         same_suit = False
         for x in range(len(hand)):
@@ -126,7 +126,7 @@ class TexasHoldEm:
         return same_suit
 
     @staticmethod
-    def straightCheck(straight_list):
+    def straight_check(straight_list):
         num_counter = 0
         straight = False
         for i in range(len(straight_list) - 1):
@@ -138,7 +138,7 @@ class TexasHoldEm:
         return straight
 
     @staticmethod
-    def pairCheck(number_list):
+    def pair_check(number_list):
         pair = False
         four_pair = False
         three_pair = False
@@ -162,7 +162,7 @@ class TexasHoldEm:
                     pair = True
         return four_pair, three_pair, pair, number_of_pairs
 
-    def displayWinner(self, user_win_rank, comp_win_rank, win_ranks):
+    def display_winner(self, user_win_rank, comp_win_rank, win_ranks):
         print(user_win_rank, comp_win_rank)
         if user_win_rank > comp_win_rank:
             self.output.display("Congratulations, you have won with a " + win_ranks.get(
@@ -175,11 +175,11 @@ class TexasHoldEm:
     def main(self):
         play_again = "Y"
         while play_again == "Y" or play_again == "y":
-            hands, table_cards = self.dealCards()
-            fold = self.playGame(hands, table_cards)
+            hands, table_cards = self.deal_cards()
+            fold = self.play_game(hands, table_cards)
             if fold != "F" or fold != "f":
-                user_win_rank, comp_win_rank, win_ranks = self.determineWinner(hands, table_cards)
-                self.displayWinner(user_win_rank, comp_win_rank, win_ranks)
+                user_win_rank, comp_win_rank, win_ranks = self.determine_winner(hands, table_cards)
+                self.display_winner(user_win_rank, comp_win_rank, win_ranks)
             play_again = self.input.get_string("Would you like to play again? (Y)es or (N)o: ")
 
 
