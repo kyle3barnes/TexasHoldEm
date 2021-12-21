@@ -100,10 +100,11 @@ class TexasHoldEm:
     def get_card_number_list(self, hand, table_cards):
         number_list = []
 
-        for x in range(len(hand)):
-            number_list.append(hand[x])
-        for x in range(len(table_cards)):
-            number_list.append(table_cards[x])
+        for card in hand:
+            number_list.append(card)
+
+        for table_card in table_cards:
+            number_list.append(table_card)
 
         self.playingCard.convert_faces_to_numbers(number_list)
 
@@ -119,11 +120,12 @@ class TexasHoldEm:
         suit_counter = 0
         same_suit = False
         for x in range(len(hand)):
-            for i in range(len(table_cards[0])):
+            for i in range(len(table_cards)):
                 if hand[x][0:1] == table_cards[i][0:1]:
                     suit_counter += 1
-            if suit_counter == 5:
-                same_suit = True
+        print(suit_counter)
+        if suit_counter >= 4:
+            same_suit = True
 
         return same_suit
 
@@ -132,9 +134,9 @@ class TexasHoldEm:
         num_counter = 0
         straight = False
         for i in range(len(straight_list) - 1):
-            if straight_list[i + 1] == (straight_list[i]):
+            if straight_list[i + 1] == (straight_list[i] + 1):
                 num_counter += 1
-        if num_counter >= 5:
+        if num_counter >= 4:
             straight = True
 
         return straight
