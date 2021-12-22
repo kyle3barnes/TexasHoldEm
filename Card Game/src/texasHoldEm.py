@@ -21,8 +21,7 @@ class TexasHoldEm:
 
     def play_game(self, hands, table_cards):
         fold = "F"
-        print("Your hand: " + str(hands[0]) + "  " + "Computers hand: " + str(
-            hands[1]))
+        print("Your hand: " + str(hands[0]))
         for i in range(len(table_cards)):
             print("Card " + str(i + 1) + ": " + table_cards[i])
 
@@ -123,7 +122,6 @@ class TexasHoldEm:
             for i in range(len(table_cards)):
                 if hand[x][0:1] == table_cards[i][0:1]:
                     suit_counter += 1
-        print(suit_counter)
         if suit_counter >= 4:
             same_suit = True
 
@@ -149,9 +147,7 @@ class TexasHoldEm:
 
         pair_dict = {i: number_list.count(i) for i in number_list if number_list.count(
             i) != 1}
-
         pair_values = list(pair_dict.values())
-
         number_of_pairs = len(pair_values)
 
         if len(pair_dict) == 0:
@@ -167,7 +163,6 @@ class TexasHoldEm:
         return four_pair, three_pair, pair, number_of_pairs
 
     def display_winner(self, user_win_rank, comp_win_rank, win_ranks):
-        print(user_win_rank, comp_win_rank)
         if user_win_rank < comp_win_rank:
             self.output.display("Congratulations, you have won with a " + win_ranks.get(
                 user_win_rank))
